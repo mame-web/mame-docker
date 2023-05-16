@@ -1,0 +1,42 @@
+FROM httpd:2.4.41-alpine
+
+LABEL maintainer Bioboosterbob
+
+# RUN apk add -X https://dl-cdn.alpinelinux.org/alpine/v3.16/main -u alpine-keys
+# RUN apk add -X https://dl-cdn.alpinelinux.org/alpine/v3.16/main -u alpine-keys
+RUN apk add edge --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
+RUN apk add --no-cache gnupg
+RUN gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 0C49F3730359A14518585931BC711F9BA15703C6
+
+RUN apk update ; apk add curl jq coreutils bash
+
+
+RUN mkdir -p /opt/mame/run && mkdir -p /opt/mame/install_ops
+# ADD scripts/alpine/*.sh /opt/mame/install_ops/
+# COPY scripts/alpine/install-mame.sh /opt/mame/install_ops/install-mame.sh
+# RUN chmod +x /opt/mame/install_ops/install-mame.sh && /opt/mame/install_ops/install-mame.sh
+
+RUN mkdir -p /usr/share/games/mess/web
+
+# --- 
+# Config Apache 2
+# ADD scripts/etc/apache2/sites-enabled/000-default.conf .
+# RUN mkdir -p /etc/apache2/sites-enabled/ && cp ./000-default.conf /etc/apache2/sites-enabled/
+
+
+RUN mkdir -p /usr/share/games/mess/web
+RUN mkdir -p /usr/local/apache2/ && \
+    mkdir -p /usr/local/apache2/htdocs/ && \ 
+    mkdir -p /usr/local/apache2/conf/ && \ 
+    mkdir -p /usr/local/apache2/cgi-bin/
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY cgi-bin/ /usr/local/apache2/cgi-bin/
+COPY static/ /usr/local/apache2/htdocs/
+COPY scripts/forward_env_start_httpd /usr/local/apache2/
+
+VOLUME /usr/share/games/mess/web
+
+EXPOSE 8080
+EXPOSE 80
+
+CMD ["/usr/local/apache2/forward_env_start_httpd"]

@@ -1,0 +1,27 @@
+FROM debian:bookworm-slim
+
+RUN apt-get update -y && apt-get install -y curl bash git wget jq
+
+RUN mkdir -p /opt/mame/run && mkdir -p /opt/mame/install_ops/
+ADD scripts/*.sh /opt/mame/install_ops/
+RUN chmod +x /opt/mame/install_ops/install-apache-httpd.sh && /opt/mame/install_ops/install-apache-httpd.sh
+RUN chmod +x /opt/mame/install_ops/install-mame.sh && /opt/mame/install_ops/install-mame.sh
+
+
+
+
+# --- 
+# Config Apache 2
+ADD scripts/etc/apache2/sites-enabled/000-default.conf .
+RUN mkdir -p /etc/apache2/sites-enabled/ && cp ./000-default.conf /etc/apache2/sites-enabled/
+
+
+EXPOSE 8080
+
+ADD scripts/start.sh /opt/mame/run
+RUN chmod +x /opt/mame/run/start.sh
+WORKDIR /opt/mame/run
+
+# CMD ["/etc/init.d/apache2", "start"]
+
+CMD ["/opt/mame/run/start.sh"]

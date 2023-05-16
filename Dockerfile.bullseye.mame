@@ -1,0 +1,42 @@
+FROM httpd:bullseye
+
+LABEL maintainer Bioboosterbob
+
+RUN apt-get update -y && apt-get install -y curl bash git wget jq
+
+
+
+RUN mkdir -p /opt/mame/run && mkdir -p /opt/mame/install_ops
+# ADD scripts/alpine/*.sh /opt/mame/install_ops/
+COPY scripts/install-mame.sh /opt/mame/install_ops/install-mame.sh
+COPY scripts/post-install-mame.sh /opt/mame/install_ops/post-install-mame.sh
+RUN chmod +x /opt/mame/install_ops/*.sh 
+RUN /opt/mame/install_ops/install-mame.sh
+RUN /opt/mame/install_ops/post-install-mame.sh
+
+RUN mkdir -p /usr/share/games/mess/web
+
+# --- 
+# Config Apache 2
+# ADD scripts/etc/apache2/sites-enabled/000-default.conf .
+# RUN mkdir -p /etc/apache2/sites-enabled/ && cp ./000-default.conf /etc/apache2/sites-enabled/
+
+
+RUN mkdir -p /usr/share/games/mess/web
+RUN mkdir -p /usr/local/apache2/ && \
+    mkdir -p /usr/local/apache2/htdocs/ && \ 
+    mkdir -p /usr/local/apache2/conf/ && \ 
+    mkdir -p /usr/local/apache2/cgi-bin/
+# COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+# COPY cgi-bin/ /usr/local/apache2/cgi-bin/
+# COPY static/ /usr/local/apache2/htdocs/
+COPY scripts/forward_env_start_httpd /usr/local/apache2/
+
+VOLUME /usr/local/apache2/cgi-bin
+VOLUME /usr/local/apache2/htdocs
+VOLUME /usr/share/games/mess/web
+
+EXPOSE 8080
+EXPOSE 80
+
+CMD ["/usr/local/apache2/forward_env_start_httpd"]
