@@ -42,6 +42,11 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Install Python 3
+          command: | 
+            apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+            python --version
+      - run:
           name: Install dependencies
           command: |
             # apk add --no-cache \
@@ -49,9 +54,9 @@ jobs:
             apk update
             apk add py-pip
             apk add --update py-pip
-            # pip install \
-              # docker-compose \
-              # awscli
+            pip install \
+              docker-compose \
+              awscli
             # pip install \
               # docker-compose==$DOCKER_COMPOSE_VERSION \
               # awscli==1.27.136
