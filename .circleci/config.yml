@@ -114,12 +114,12 @@ jobs:
           keys:
             - v1-{{ .Branch }}
           paths:
-            - /caches/${DOCKER_IMG_TAG}.${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.tar
+            - /caches/${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.${DOCKER_IMG_TAG}.tar
       - run:
           name: Load Docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/${DOCKER_IMG_TAG}.${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.tar | true
+            docker load -i /caches/${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.${DOCKER_IMG_TAG}.tar | true
       - run:
           name: Build Mame application Docker image
           command: |
@@ -129,7 +129,7 @@ jobs:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/${DOCKER_IMG_TAG}.${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.tar ${DOCKER_IMG_ORGNAME}/${DOCKER_IMG_APPNAME}:${DOCKER_IMG_TAG}
+            docker save -o /caches/${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.${DOCKER_IMG_TAG}.tar ${DOCKER_IMG_ORGNAME}/${DOCKER_IMG_APPNAME}:${DOCKER_IMG_TAG}
             echo ">>> +> +> --- checking the docker image tar :"
             ls -alh /caches
             echo ">>> +> +> --- checking the docker image tar (with 2 greps) :"
@@ -138,7 +138,7 @@ jobs:
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
-            - /caches/${DOCKER_IMG_TAG}.${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.tar
+            - /caches/${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.${DOCKER_IMG_TAG}.tar
       - run:
           name: Run tests
           command: |
