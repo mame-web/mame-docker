@@ -53,6 +53,7 @@ jobs:
             echo ">> Check version of Python : "
             python --version
             echo " >> ---- "
+            python -m pip install --upgrade pip
             # apk add --no-cache \
               # py-pip=9.0.0-r1
             apk update
