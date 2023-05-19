@@ -70,7 +70,8 @@ jobs:
             echo ">> Unintsalling Python 2.* : "
             rm /usr/bin/python || true
             apk del python
-            apk del pip
+            apk del pip || true
+            apk del py3-pip || true
             echo ">> After Unintsalling Python 2.* : "
             python --version || true
             pip -V || true
