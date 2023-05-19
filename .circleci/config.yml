@@ -55,6 +55,7 @@ jobs:
             apk add --no-cache py3-pip || true
             apk add --update --no-cache py3-setuptools || true
             apk add --no-cache py3-setuptools || true
+            python3 -m pip install --upgrade --force pip
             python --version
             pip -V || true
             pip3 -V || true
