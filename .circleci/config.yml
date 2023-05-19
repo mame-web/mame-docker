@@ -46,8 +46,9 @@ jobs:
           command: | 
             apk update
             apk del python
-            sudo rm /usr/bin/python || true
+            rm /usr/bin/python || true
             apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+            apk add --update --no-cache py3-setuptools
             python --version
       - run:
           name: Install dependencies
@@ -63,11 +64,16 @@ jobs:
             echo ">> After Unintsalling Python 2.* : "
             python --version || true
             apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+            apk add --update --no-cache py3-setuptools
             python --version
             echo ">> Check version of Python : "
             python --version
             echo " >> ---- "
             python -m pip install --upgrade pip
+            echo ">> Check version of Python used by pip : "
+            pip -V
+            echo " >> ---- "
+            
             # ---
             # https://github.com/boschresearch/pcg_gazebo/issues/123#issuecomment-695895893
             pip install pyrsistent==0.16.1
