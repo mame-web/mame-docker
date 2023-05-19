@@ -55,11 +55,11 @@ jobs:
           command: |
             apk update
             echo ">> Check version of Python before python 3 : "
-            which python
-            which pip
-            python --version
-            pip -V
-            ls -alh /usr/bin/python
+            which python || true
+            which pip || true
+            python --version || true
+            pip -V || true
+            ls -alh /usr/bin/python || true
             echo ">> Unintsalling Python 2.* : "
             rm /usr/bin/python || true
             apk del python
