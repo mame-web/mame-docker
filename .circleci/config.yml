@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Install Python 3
           command: | 
-            apk update
+            apk update && apk add --no-cache build-base
             apk update --no-cache
             apk del python
             rm /usr/bin/python || true
