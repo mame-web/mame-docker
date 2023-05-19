@@ -10,5 +10,8 @@ cat <<EOF >./.bob.docker.config.json
 }
 EOF
 
+ls -alh ./.bob.docker.config.json
+
 mkdir -p ~/.docker/
-cat ./.bob.docker.config.json ~/.docker/config.json
+
+cat ./.bob.docker.config.json | tee ~/.docker/config.json
