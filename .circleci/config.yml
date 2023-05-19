@@ -55,7 +55,7 @@ jobs:
             apk add --update --no-cache py3-setuptools
             apk add --no-cache py3-setuptools
             python --version
-            pip -V
+            pip -V || true
       - run:
           name: Install dependencies
           command: |
