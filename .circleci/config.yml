@@ -44,8 +44,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache \
-              py-pip=9.0.0-r1
+            # apk add --no-cache \
+              # py-pip=9.0.0-r1
+            apk update
+            apk add py-pip
+            apk add --update py-pip
             pip install \
               docker-compose==$DOCKER_COMPOSE_VERSION \
               awscli==1.27.136
