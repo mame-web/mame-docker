@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Install Python 3
           command: | 
-            apk update && apk add --no-cache build-base python3-dev
+            apk update && apk add --no-cache build-base python3-dev libffi-dev
 
             apk update --no-cache
             apk del python
