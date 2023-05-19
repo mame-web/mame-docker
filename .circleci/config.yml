@@ -57,9 +57,11 @@ jobs:
             apk add --no-cache py3-setuptools || true
             python --version
             pip -V || true
+            pip3 -V || true
       - run:
           name: Install dependencies
           command: |
+            alias pip='pip3'
             apk update
             echo ">> Check version of Python before python 3 : "
             which python || true
