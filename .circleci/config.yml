@@ -144,9 +144,7 @@ jobs:
             docker save -o /caches/${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.${DOCKER_IMG_TAG}.tar ${DOCKER_IMG_ORGNAME}/${DOCKER_IMG_APPNAME}:${DOCKER_IMG_TAG}
             echo ">>> +> +> --- checking the docker image tar :"
             ls -alh /caches
-            echo ">>> +> +> --- checking the docker image tar (with 2 greps) :"
-            ls -alh /caches | grep bioboosterbob
-            ls -alh /caches | grep mame
+            echo ">>> +> +> --- checking the docker image tar :"
             ls -alh /caches/${DOCKER_IMG_ORGNAME}.${DOCKER_IMG_APPNAME}.${DOCKER_IMG_TAG}.tar
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}

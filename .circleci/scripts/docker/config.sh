@@ -10,5 +10,5 @@ cat <<EOF >./.bob.docker.config.json
 }
 EOF
 
-mdkir -p ~/.docker/
+mkdir -p ~/.docker/
 cat ./.bob.docker.config.json ~/.docker/config.json
