@@ -49,6 +49,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+            echo ">> Check version of Python : "
+            python --version
+            echo " >> ---- "
             # apk add --no-cache \
               # py-pip=9.0.0-r1
             apk update
