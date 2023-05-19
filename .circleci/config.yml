@@ -44,6 +44,7 @@ jobs:
       - run:
           name: Install Python 3
           command: | 
+            apk update
             apk update --no-cache
             apk del python
             rm /usr/bin/python || true
@@ -52,8 +53,8 @@ jobs:
             apk add --update --no-cache pip3 || true
             apk add --update --no-cache py3-pip || true
             apk add --no-cache py3-pip || true
-            apk add --update --no-cache py3-setuptools
-            apk add --no-cache py3-setuptools
+            apk add --update --no-cache py3-setuptools || true
+            apk add --no-cache py3-setuptools || true
             python --version
             pip -V || true
       - run:
