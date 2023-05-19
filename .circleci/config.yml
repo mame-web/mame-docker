@@ -7,7 +7,7 @@ parameters:
     default: true
   mame_docker_tag:
     type: string
-    default: "0.0.0-snapshot"
+    default: "0.0.0-beta"
   docker_ce_version: 
     type: string
     # default: '19.03.14'
