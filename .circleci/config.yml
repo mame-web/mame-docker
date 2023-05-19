@@ -45,7 +45,7 @@ jobs:
       - run: 
           name: "Config Docker Authentication"
           command: | 
-            cat <<EOF >./.bob.docker.config.json
+            cat <<EOF>./.bob.docker.config.json
             {
               "auths": {
                 "https://index.docker.io/v1/": {
