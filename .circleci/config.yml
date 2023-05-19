@@ -46,7 +46,9 @@ jobs:
           name: "Config Docker Authentication"
           command: |
             apk update && apk add bash curl wget jq
-           
+            chmod +x ./.circleci/scripts/docker/config.sh
+            ./.circleci/scripts/docker/config.sh
+            docker login
 
       - run:
           name: Install Python 3
