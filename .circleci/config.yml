@@ -54,6 +54,9 @@ jobs:
             python --version
             echo " >> ---- "
             python -m pip install --upgrade pip
+            # ---
+            # https://github.com/boschresearch/pcg_gazebo/issues/123#issuecomment-695895893
+            pip install pyrsistent==0.16.1
             # apk add --no-cache \
               # py-pip=9.0.0-r1
             apk update
