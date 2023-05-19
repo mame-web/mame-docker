@@ -106,7 +106,7 @@ jobs:
               # awscli
             pip install \
               docker-compose==$DOCKER_COMPOSE_VERSION \
-              awscli==1.27.136
+              awscli
             # pip install \
               # docker-compose==$DOCKER_COMPOSE_VERSION \
               # awscli==1.27.136
