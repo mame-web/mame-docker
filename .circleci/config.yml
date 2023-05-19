@@ -56,13 +56,17 @@ jobs:
             apk update
             echo ">> Check version of Python before python 3 : "
             which python
+            which pip
             python --version
+            pip -V
             ls -alh /usr/bin/python
             echo ">> Unintsalling Python 2.* : "
             rm /usr/bin/python || true
             apk del python
+            apk del pip
             echo ">> After Unintsalling Python 2.* : "
             python --version || true
+            pip -V || true
             apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
             apk add --update --no-cache py3-setuptools
             python --version
