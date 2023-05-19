@@ -101,9 +101,12 @@ jobs:
             apk update
             apk add py-pip
             apk add --update py-pip
+            # pip install \
+              # docker-compose \
+              # awscli
             pip install \
-              docker-compose \
-              awscli
+              docker-compose==$DOCKER_COMPOSE_VERSION \
+              awscli==1.27.136
             # pip install \
               # docker-compose==$DOCKER_COMPOSE_VERSION \
               # awscli==1.27.136
